@@ -1,2 +1,2 @@
-{'nombre': 'tomatoe', 'precio': '50000 G', 'cantidad': '40'}
-{'nombre': 'tomatoe', 'precio': '40 G', 'cantidad': '40'}
+{'nombre': 'pancito', 'precio': '13 G', 'cantidad': '3'}
+{'nombre': 'queso', 'precio': '400 G', 'cantidad': '5'}

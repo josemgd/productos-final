@@ -2,36 +2,35 @@ import ast
 productos = []
 
 def añadir_producto():
-    producto={'nombre':"",'precio':"",'cantidad':""}
+    producto = {'nombre': "", 'precio': "", 'cantidad': ""}
 
-    nombre=str(input("Nombre del producto: "))
+    nombre = str(input("Nombre del producto: "))
     producto['nombre'] = nombre
-    if productos == []:
-        while True:
-            try:
-                precio=str(int(input("Ahora ingrese el precio: ")))
-                break
-            except ValueError:
-                print("Solamente coloque numeros en este paremetro")
-        while True:
-            try:
-                cantidad=str(int(input("Por ultimo la cantidad: ")))
-                break
-            except ValueError:
-                print("Solamente coloque numeros en este paremetro")
-        producto['precio'] = precio + " G"
-        producto['cantidad'] = cantidad
-        productos.append(producto)
-    elif productos != []:
-        for item in productos:
-            if item['nombre'] == nombre:
-                print("")
-                print("Error el producto ya existe")
-                print("")
-                return
-        producto['precio'] = precio +" G"
-        producto['cantidad'] = cantidad    
-        productos.append(producto)
+
+    for item in productos:
+        if item['nombre'] == nombre:
+            print("")
+            print("Error el producto ya existe")
+            print("")
+            return
+
+    while True:
+        try:
+            precio = str(float(input("Ahora ingrese el precio: ")))
+            break
+        except ValueError:
+            print("Solamente coloque numeros en este paremetro")
+
+    while True:
+        try:
+            cantidad = str(int(input("Por ultimo la cantidad: ")))
+            break
+        except ValueError:
+            print("Solamente coloque numeros en este paremetro")
+
+    producto['precio'] = precio + " G"
+    producto['cantidad'] = cantidad
+    productos.append(producto)
 
 def ver_productos():
     for producto in productos:
@@ -55,7 +54,7 @@ def actualizar_producto():
                 elif accion == 2 :
                     while True:
                         try:
-                            newPrecio=str(int(input("Ingrese el nuevo precio: ")))
+                            newPrecio=str(float(input("Ingrese el nuevo precio: ")))
                             break
                         except ValueError:
                             print("Solamente coloque numeros en este paremetro")
@@ -85,23 +84,30 @@ def eliminar_producto():
         else:
             print("Este producto no existe")
 
-def guardar_datos():
-    
-    with open("productos.txt","a") as file_g:
-        for producto in productos:
-            file_g.write(f'{producto}\n')
-    
-
-def cargar_datos():
+def guardar_datos() -> None:
     try:
-        file_leer= open("productos.txt","r")
-        for linea in file_leer:
-            producto = ast.literal_eval(linea.strip())
-            productos.append(producto)
-        print(file_leer.read())
-        file_leer.close()
+        with open("productos.txt", "w") as file:
+            for producto in productos:
+                file.write(f'{producto}\n')
+        print("\nDatos guardados exitosamente\n")
+    except IOError:
+        print("\nError al guardar los datos\n")
+
+def cargar_datos() -> None:
+    try:
+        with open("productos.txt", "r") as file:
+            productos.clear()  # Limpiar lista actual
+            for linea in file:
+                try:
+                    producto = ast.literal_eval(linea.strip())
+                    productos.append(producto)
+                except (ValueError, SyntaxError):
+                    print(f"Error al procesar línea: {linea}")
+        print("\nDatos cargados exitosamente\n")
     except FileNotFoundError:
-        print("Archivo aún no existe\n")
+        print("\nNo se encontró archivo de datos previo\n")
+    except IOError:
+        print("\nError al cargar los datos\n")
 
 
 def menu():
