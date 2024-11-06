@@ -1,0 +1,1 @@
+{'nombre': 'tomatoe', 'precio': '50000 G', 'cantidad': '40'}
