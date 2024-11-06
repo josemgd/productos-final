@@ -48,7 +48,7 @@ def actualizar_producto():
                 print("1:-Cambiar nombre\n2:-Cambiar precio\n3:-Cambiar cantidad\n")
                 
                 accion = int(input('Seleccione la accion a realizar: '))
-                if accion == 1: #and productoCambiar != producto['nombre']:
+                if accion == 1:
                     newName= str(input("Ingrese el nuevo nombre: "))
                     producto['nombre'] = newName
                     break
